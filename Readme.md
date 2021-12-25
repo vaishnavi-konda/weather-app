@@ -22,3 +22,12 @@ JSON.stringify() converts an object into string.
 https://openweathermap.org/weather-conditions#Icon-list
 
 http://openweathermap.org/img/wn/10d@2x.png
+
+### Install body-parser
+
+To parse the data we get from the html form
+
+    npm i -g body-parser
+
+    const bodyParser = require('body-parser');
+    app.use(bodyParser.urlencoded({ extended: true }));
