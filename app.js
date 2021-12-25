@@ -6,8 +6,14 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
-  const city = 'chennai';
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=9c49f3bddc02a39b727bf68e5b35d12f&units=metric`;
+  res.sendFile(__dirname + '/index.html');
+});
+
+app.post('/', function (req, res) {
+  const city = req.body.cityName;
+  const apiKey = '9c49f3bddc02a39b727bf68e5b35d12f';
+  const units = 'metric';
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
 
   https.get(url, function (response) {
     console.log(response.statusCode, response.statusMessage);
