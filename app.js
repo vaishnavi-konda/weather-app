@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
@@ -18,24 +19,33 @@ app.post('/', function (req, res) {
   https.get(url, function (response) {
     // console.log(response.statusCode, response.statusMessage);
 
-    response.on('data', function (data) {
-      // we get data from weather api in the form of string(hexadecimal).
+    if (response.statusCode !== 200) {
+      res.sendFile(__dirname + '/failure.html');
+    } else {
+      response.on('data', function (data) {
+        // we get data from weather api in the form of string(hexadecimal).
 
-      const weatherData = JSON.parse(data);
+        const weatherData = JSON.parse(data);
 
-      const temp = weatherData.main.temp;
-      const weatherDesc = weatherData.weather[0].description;
-      const icon = weatherData.weather[0].icon;
-      const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
+        const temp = weatherData.main.temp;
+        const weatherDesc = weatherData.weather[0].description;
+        const icon = weatherData.weather[0].icon;
+        const iconUrl = `http://openweathermap.org/img/wn/${icon}@2x.png`;
 
-      res.write(
-        `<h1>The temperature in ${city} is ${temp} degree celsius.</h1>`
-      );
-      res.write(`<h2>The weather is ${weatherDesc}</h2>`);
-      res.write(`<img src=${iconUrl}>`);
-      res.send();
-    });
+        res.write(
+          `<h1>The temperature in ${city} is ${temp} degree celsius.</h1>`
+        );
+        res.write(`<h2>The weather is ${weatherDesc}</h2>`);
+        res.write(`<img src=${iconUrl}>`);
+        res.send();
+      });
+    }
   });
+});
+
+app.post('/failure', function (req, res) {
+  var a = 10;
+  res.redirect('/');
 });
 
 app.listen(3000, function () {
