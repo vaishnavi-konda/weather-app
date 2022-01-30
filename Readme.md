@@ -1,33 +1,3 @@
-### https
+# Weather App
 
-A node js module used to make http requests.
-
-### joke api
-
-    https://api.jokes.one
-
-### kanye quote api
-
-    https://api.kanye.rest/
-
-### openweathermap api
-
-https://samples.openweathermap.org/data/2.5/weather?q=Hyderabad&appid=b1b15e88fa797225412429c1c50c122a1
-
-JSON.parse() is used to convert string to javascript object.
-JSON.stringify() converts an object into string.
-
-### How to get icons from openweathermap.org
-
-https://openweathermap.org/weather-conditions#Icon-list
-
-http://openweathermap.org/img/wn/10d@2x.png
-
-### Install body-parser
-
-To parse the data we get from the html form
-
-    npm i -g body-parser
-
-    const bodyParser = require('body-parser');
-    app.use(bodyParser.urlencoded({ extended: true }));
+A simple app to know the weather conditions in a particular city.
